@@ -16,6 +16,8 @@ namespace Persistence
 
         public DbSet<Activity> Activities { get; set; }
 
+        // 通过配置的方法让dotnet ef 生成migration代码
+        // 这样的缺点是需要设置Id，这对于几张table有relation时不是很方便。解决方法是Persistence下的Seed.cs
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Value>()
