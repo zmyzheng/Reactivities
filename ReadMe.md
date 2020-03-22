@@ -12,4 +12,10 @@ add package to project App: dotnet add App package Microsoft.Azure.Kusto.Languag
 
 add EF tool: dotnet tool install --global dotnet-ef
 
-DB migration: dotnet ef migrations add InitalCreate -p Persistence/ -s API/
+DB migration code generation: dotnet ef migrations add InitalCreate -p Persistence/ -s API/
+
+update DB: dotnet ef database update    (这个项目中没有用这种方法，而是用code的方式，见Program.cs)
+
+watch run: cd API/             dotnet watch run
+
+
