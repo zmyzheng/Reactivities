@@ -9,3 +9,5 @@ list projects in solution: dotnet sln list
 add porject Domain as reference for project Application: cd Application/      dotnet add reference ../Domain/
 
 add package to project App: dotnet add App package Microsoft.Azure.Kusto.Language
+
+add EF tool: dotnet tool install --global dotnet-ef
