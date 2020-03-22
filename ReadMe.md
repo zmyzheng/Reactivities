@@ -11,3 +11,5 @@ add porject Domain as reference for project Application: cd Application/      do
 add package to project App: dotnet add App package Microsoft.Azure.Kusto.Language
 
 add EF tool: dotnet tool install --global dotnet-ef
+
+DB migration: dotnet ef migrations add InitalCreate -p Persistence/ -s API/
