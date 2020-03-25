@@ -34,7 +34,13 @@ namespace API
             {
                 opt.UseNpgsql(Configuration.GetConnectionString("PostgreSql"));
             });
-
+            services.AddCors(opt => 
+            {
+                opt.AddPolicy("CorsPolicy", policy => 
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("*");
+                });
+            });
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddControllers();
         }
@@ -54,6 +60,8 @@ namespace API
 
             app.UseAuthorization();
 
+            app.UseCors("CorsPolicy");
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
