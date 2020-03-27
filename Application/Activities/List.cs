@@ -11,8 +11,10 @@ namespace Application.Activities
 {
     public class List
     {
+        // List<Activity>是返回值
         public class Query : IRequest<List<Activity>> { }
 
+        // 接受Query，返回List<Activity>，如果没有返回值就不写
         public class Handler : IRequestHandler<Query, List<Activity>>
         {
             private readonly DataContext _context;
