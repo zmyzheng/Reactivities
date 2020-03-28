@@ -6,17 +6,11 @@ using Persistence;
 
 namespace Application.Activities
 {
-    public class Edit
+    public class Delete
     {
         public class Command : IRequest
         {
             public Guid Id { get; set; }
-            public string Title { get; set; }
-            public string Description { get; set; }
-            public DateTime? Date { get; set; } //设置成not required
-            public string Category { get; set; }
-            public string City { get; set; }
-            public string Venue { get; set; }
         }
 
 
@@ -35,17 +29,12 @@ namespace Application.Activities
             {
                 var activity = await _context.Activities.FindAsync(request.Id);
 
-                if (activity == null) 
-                {
-                    throw new Exception("Could not find activity");
-                }
-                activity.Title = request.Title ?? activity.Title; // 意思是如果request.Title!=null，就取request.Title的值，否则取activity.Title
-                activity.Description = request.Description ?? activity.Description;
-                activity.Category = request.Category ?? activity.Category;
-                activity.Date = request.Date ?? activity.Date;
-                activity.City = request.City ?? activity.City;
-                activity.Venue = request.Venue ?? activity.Venue;
+               if (activity == null) 
+               {
+                   throw new Exception("Could not find activity");
+               }
 
+               _context.Remove(activity);
 
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success) 
