@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain;
@@ -14,6 +15,8 @@ namespace Application.Activities
         public class Command : IRequest
         {
             public Guid Id { get; set; }
+            
+            [Required]
             public string Title { get; set; }
             public string Description { get; set; }
             public DateTime Date { get; set; }
