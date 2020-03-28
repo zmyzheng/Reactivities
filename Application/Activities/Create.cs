@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain;
+using FluentValidation;
 using MediatR;
 using Persistence;
 
@@ -15,14 +16,23 @@ namespace Application.Activities
         public class Command : IRequest
         {
             public Guid Id { get; set; }
-            
-            [Required]
+
+            [Required]  // 以annotation的方式验证
             public string Title { get; set; }
             public string Description { get; set; }
             public DateTime Date { get; set; }
             public string Category { get; set; }
             public string City { get; set; }
             public string Venue { get; set; }
+        }
+
+        // 以fluent middleware的方式验证
+        public class ComandValidator : AbstractValidator<Command>
+        {
+            public ComandValidator()
+            {
+                RuleFor(x => x.Description).NotEmpty();
+            }
         }
 
         // // 接受Query，没有返回值（实际上因为下面用了Unit，所以返回空object
