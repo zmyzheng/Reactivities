@@ -56,7 +56,7 @@ namespace API
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();  // API/Properties/louchSettings.json中的ASPNETCORE_ENVIRONMENT定义了watch run是不是development mode
             }
 
             app.UseHttpsRedirection();
