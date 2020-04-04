@@ -16,6 +16,8 @@ using MediatR;
 using Application.Activities;
 using FluentValidation.AspNetCore;
 using API.Middleware;
+using Domain;
+using Microsoft.AspNetCore.Identity;
 
 namespace API
 {
@@ -49,6 +51,11 @@ namespace API
                 {
                     cfg.RegisterValidatorsFromAssemblyContaining<Create>(); // 包含Create的assembly也就是Application project都被注册了
                 });
+
+            var builder = services.AddIdentityCore<AppUser>();
+            var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+            identityBuilder.AddEntityFrameworkStores<DataContext>();
+            identityBuilder.AddSignInManager<SignInManager<AppUser>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
