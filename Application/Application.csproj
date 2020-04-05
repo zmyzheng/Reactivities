@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework> <!-- for compatibility reason, change it from netstandard2.1 to  netcoreapp3.1 to use SignInManager-->
   </PropertyGroup>
 
 </Project>
