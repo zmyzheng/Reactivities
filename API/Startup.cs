@@ -18,6 +18,8 @@ using FluentValidation.AspNetCore;
 using API.Middleware;
 using Domain;
 using Microsoft.AspNetCore.Identity;
+using Application.Interfaces;
+using Infrastructure.Security;
 
 namespace API
 {
@@ -58,6 +60,22 @@ namespace API
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
 
             services.AddAuthentication();
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
+            /*
+            When we inject a dependancy into a class it is given a lifetime - dotnet is responsible for creating a new instance of the service and disposing it afterwards.   The options we have are:
+
+            AddTransient
+            AddScoped
+            AddSingleton
+
+            The Transient will create a new instance of the service for any method that is called and then dispose it after the method completes.   If you use this in a controller and you called more than one method in that request then it would be created and destroyed twice.
+
+            Scoped means its scoped to the request itself.  So in the case of an API controller this will have a lifetime of the entire Http request and then dispose of it once the request has finished.
+
+            Singleton means the service is started once and is never disposed of until the app restarts.
+
+            We almost always will use 'Scoped' unless we have a good reason for choosing transient or singleton.
+            */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
