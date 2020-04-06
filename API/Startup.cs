@@ -23,6 +23,8 @@ using Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace API
 {
@@ -51,7 +53,12 @@ namespace API
                 });
             });
             services.AddMediatR(typeof(List.Handler).Assembly);
-            services.AddControllers()
+            services
+                .AddControllers(opt => 
+                {
+                    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                    opt.Filters.Add(new AuthorizeFilter(policy));
+                })
                 .AddFluentValidation(cfg => 
                 {
                     cfg.RegisterValidatorsFromAssemblyContaining<Create>(); // 包含Create的assembly也就是Application project都被注册了
