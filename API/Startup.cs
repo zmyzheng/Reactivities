@@ -83,6 +83,7 @@ namespace API
                     };
                 });
             services.AddScoped<IJwtGenerator, JwtGenerator>();
+            services.AddScoped<IUserAccessor, UserAccessor>();
             /*
             When we inject a dependancy into a class it is given a lifetime - dotnet is responsible for creating a new instance of the service and disposing it afterwards.   The options we have are:
 
