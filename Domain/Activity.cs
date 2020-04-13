@@ -13,6 +13,7 @@ namespace Domain
         public string City { get; set; }
         public string Venue { get; set; }
 
-        public ICollection<UserActivity> UserActivities { get; set; }
+        // to use lazy loading, add virtual key word to indicate this is a navigation property
+        public virtual ICollection<UserActivity> UserActivities { get; set; }
     }
 }

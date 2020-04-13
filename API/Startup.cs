@@ -44,6 +44,7 @@ namespace API
         {
             services.AddDbContext<DataContext>(opt => 
             {
+                opt.UseLazyLoadingProxies();
                 opt.UseNpgsql(Configuration.GetConnectionString("PostgreSql"));
             });
             services.AddCors(opt => 

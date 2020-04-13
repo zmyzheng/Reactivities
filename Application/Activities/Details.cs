@@ -31,10 +31,11 @@ namespace Application.Activities
             public async Task<ActivityDto> Handle(Query request, CancellationToken cancellationToken)
             {
                 var activity = await _context.Activities
-                    .Include(x => x.UserActivities)
-                    .ThenInclude(x => x.AppUser)
-                    .SingleOrDefaultAsync(x => x.Id == request.Id);
-
+                    // 因为加了lazy laoding proxy 的package，这两行就可以去掉了
+                    // .Include(x => x.UserActivities)
+                    // .ThenInclude(x => x.AppUser)
+                    // .SingleOrDefaultAsync(x => x.Id == request.Id);
+                    .FindAsync(request.Id);
                 if (activity == null)
                 {
                     throw new RestException(HttpStatusCode.NotFound, new { message = "Could not find activity" });
