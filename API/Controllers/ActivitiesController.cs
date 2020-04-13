@@ -23,14 +23,14 @@ namespace API.Controllers
         // }
 
         [HttpGet]
-        public async Task<ActionResult<List<Activity>>> List(CancellationToken ct) 
+        public async Task<ActionResult<List<ActivityDto>>> List(CancellationToken ct) 
         {
             return await Mediator.Send(new List.Query(), ct);
         }
 
         [HttpGet("{id}")]
         // [Authorize]  添加了policy就不用这样一个一个加了，因为大部分API都需要authorize，我们只需要给不需要authorize的API加注解就行
-        public async Task<ActionResult<Activity>> Details(Guid id)
+        public async Task<ActionResult<ActivityDto>> Details(Guid id)
         {
             return await Mediator.Send(new Details.Query { Id = id });
         }
