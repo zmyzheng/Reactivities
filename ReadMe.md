@@ -16,6 +16,8 @@ DB migration code generation: dotnet ef migrations add InitalCreate -p Persisten
 
 update DB: dotnet ef database update    (这个项目中没有用这种方法，而是用code的方式，见Program.cs)
 
+drop DB: dotnet ef database drop -p Persistence -s API
+
 run: dotnet run -p API/
 
 watch run: cd API/             dotnet watch run
