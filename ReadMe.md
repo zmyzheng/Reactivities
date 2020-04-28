@@ -26,3 +26,5 @@ watch run: cd API/             dotnet watch run
 两种validation的方式，一种是annotation，一种是Fluent validation（middleware）
 
 
+---------------
+dotnet user-secrets init

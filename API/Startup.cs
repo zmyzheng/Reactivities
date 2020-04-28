@@ -26,6 +26,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using AutoMapper;
+using Infrastructure.photos;
 
 namespace API
 {
@@ -34,6 +35,7 @@ namespace API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            // Configuration能access appsettings.json和user-secrets
         }
 
         public IConfiguration Configuration { get; }
@@ -83,6 +85,7 @@ namespace API
             // AddTransient: lifetime of the operation, rather the request
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super secret key"));
+            // 如果用user-secrets的话写作：
             // var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt => 
@@ -97,6 +100,9 @@ namespace API
                 });
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IUserAccessor, UserAccessor>();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
+            // 这里用的是appsettings.json，也可以用user-secrets，写法一样
+            
             /*
             When we inject a dependancy into a class it is given a lifetime - dotnet is responsible for creating a new instance of the service and disposing it afterwards.   The options we have are:
 
