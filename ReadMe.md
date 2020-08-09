@@ -28,3 +28,10 @@ watch run: cd API/             dotnet watch run
 
 ---------------
 dotnet user-secrets init
+
+
+---------------
+值得学习：
+1. migration的方式
+2. validation的方式
+3. exception的方式
